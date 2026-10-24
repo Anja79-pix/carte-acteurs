@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Carte des acteurs</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    html, body { height: 100%; margin: 0; font-family: Arial, sans-serif; font-size: 14px; }
+    body { display: flex; }
+    #panneau { width: 270px; padding: 14px; overflow-y: auto; border-right: 1px solid #ccc; box-sizing: border-box; }
+    #map { flex: 1; }
+    h1 { font-size: 17px; margin: 0 0 10px; }
+    fieldset { border: 0; padding: 0; margin: 0 0 14px; }
+    legend { font-weight: bold; margin-bottom: 4px; padding: 0; }
+    label { display: block; margin: 3px 0; cursor: pointer; }
+    select { width: 100%; padding: 5px; }
+    #compteur { background: #f2f2f2; padding: 8px; margin-bottom: 10px; }
+    .boutons { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .boutons button { flex: 1 1 45%; padding: 7px; cursor: pointer; }
+    #btn-centrer { flex-basis: 100%; }
+    #recherche { width: 100%; padding: 7px; box-sizing: border-box; border: 1px solid #bbb; border-radius: 4px; }
+    #resultats div { padding: 5px 6px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 13px; }
+    #resultats div:hover { background: #f2f2f2; }
+    .puce { display: inline-block; width: 18px; height: 6px; margin-right: 6px; vertical-align: middle; }
+    .forme { display: inline-block; width: 11px; height: 11px; background: #888; margin-right: 6px; vertical-align: middle; }
+    .forme.rond { border-radius: 50%; }
+    .forme.carre { border-radius: 2px; }
+    .mk { display: block; width: 13px; height: 13px; border: 1.5px solid #fff; box-shadow: 0 0 0 1px #0004; }
+    .mk.rond { border-radius: 50%; }
+    .mk.carre { border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div id="panneau">
+    <h1>Explorer les acteurs « sciences, patrimoines et société »</h1>
+
+    <div style="margin-bottom: 14px;">
+      <input type="search" id="recherche" placeholder="Rechercher une commune" autocomplete="off">
+      <div id="resultats"></div>
+    </div>
+
+    <div id="compteur"></div>
+
+    <div class="boutons">
+      <button id="btn-centrer">Recentrer la carte</button>
+      <button id="btn-tout">Tout réinitialiser</button>
+      <button id="btn-rien">Tout décocher</button>
+    </div>
+
+    <fieldset id="familles">
+      <legend>Famille d'acteurs (couleur)</legend>
+    </fieldset>
+
+    <fieldset id="types">
+      <legend>Type de commune (forme)</legend>
+      <label><input type="checkbox" value="Urbaine" checked><span class="forme rond"></span>Urbaine</label>
+      <label><input type="checkbox" value="Rurale" checked><span class="forme carre"></span>Rurale</label>
+      <label><input type="checkbox" value="Hors référentiel" checked>Hors référentiel de densité</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Territoire</legend>
+      <select id="region"></select>
+    </fieldset>
+
+    <div id="notes" style="font-size:12px; color:#666; border-top:1px solid #ddd; padding-top:10px;">
+      <p>Les chiffres sont des nombres d'acteurs, non rapportés au nombre d'habitants.</p>
+      <p>Source : base nationale anonymisée de 690 acteurs, Observatoire de l'Ocim. Fond de carte : © OpenStreetMap.</p>
+      <p style="color:#999;">Carte produite en octobre 2026.</p>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
